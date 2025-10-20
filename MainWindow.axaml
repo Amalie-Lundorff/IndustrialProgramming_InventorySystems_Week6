@@ -1,0 +1,63 @@
+<Window
+  x:Class="InventorySystems_Week6.MainWindow"
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:InventorySystems_Week6"
+  x:DataType="local:MainWindow"
+  Title="Inventory System (no DataGrid)"
+  Width="900" Height="520">
+
+
+  <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="*,*"
+        Margin="12" ColumnSpacing="16" RowSpacing="10">
+    
+    <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
+      <Button Click="ProcessNext_OnClick">Process next order</Button>
+      <TextBlock Text="Total revenue:" VerticalAlignment="Center"/>
+      <TextBlock Text="{Binding TotalRevenue, StringFormat={}{0:C}}"
+                 FontWeight="Bold" VerticalAlignment="Center"/>
+    </StackPanel>
+    <StackPanel Grid.Row="1" Grid.Column="0">
+      <TextBlock Text="Queued orders" FontWeight="Bold" Margin="0,0,0,6"/>
+      <Border BorderThickness="1" BorderBrush="Gray" Padding="6">
+        <ListBox ItemsSource="{Binding QueuedOrders}">
+          <ListBox.ItemTemplate> 
+            <DataTemplate>
+              <StackPanel Orientation="Vertical" Margin="0,4">
+                <TextBlock FontWeight="SemiBold"
+                           Text="{Binding Customer}"/>
+                <TextBlock FontSize="12"
+                           Text="{Binding Time}"/>
+                <TextBlock FontSize="12"
+                           Text="{Binding TotalPrice, StringFormat={}{0:C}}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Border>
+    </StackPanel>
+    <StackPanel Grid.Row="1" Grid.Column="1">
+      <TextBlock Text="Processed orders" FontWeight="Bold" Margin="0,0,0,6"/>
+      <Border BorderThickness="1" BorderBrush="Gray" Padding="6">
+        <ListBox ItemsSource="{Binding ProcessedOrders}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Vertical" Margin="0,4">
+                <TextBlock FontWeight="SemiBold"
+                           Text="{Binding Customer}"/>
+                <TextBlock FontSize="12"
+                           Text="{Binding Time}"/>
+                <TextBlock FontSize="12"
+                           Text="{Binding TotalPrice, StringFormat={}{0:C}}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Border>
+    </StackPanel>
+    
+    <TextBlock Grid.Row="2" Grid.ColumnSpan="2"
+               Opacity="0.6" FontSize="12"
+               Text="Click 'Process next order' to move the earliest queued order."/>
+  </Grid>
+</Window>
